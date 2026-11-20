@@ -308,20 +308,20 @@ if clicked:
 
 
 # ====================================================================
-# Part D answers (run with "Syracuse, NY"). check these against your own Behind the scenes.
+# Part D answers (step 2) - for one city like "Syracuse, NY":
 #
-# a. The manager called weather_report first, then style_advice and activity_ideas
-#    (in the same turn, so they can run side by side). It does not call get_weather itself:
-#    only the weather agent has that tool.
+# a. the manager called weather_report first, then style_advice and activity_ideas.
+#    it never calls get_weather itself - only the weather agent has that tool. the manager
+#    just gets back the weather agent's written report.
 #
-# b. A summary, not the full forecast. The manager only sees the weather agent's short
-#    written report, never the raw dictionary from get_weather. The text sent to the stylist
-#    was written by the manager model: it chose the input when it called style_advice
-#    (you can see it in the arguments line).
+# b. a summary, not the full forecast. the raw dict from get_weather (hourly list and all)
+#    stays inside the weather agent. what got sent to the stylist was the manager's own
+#    short version of the weather - the manager model wrote that text when it decided
+#    the arguments for style_advice (you can see it in the "called style_advice:" line).
 #
-# c. Each agent-as-tool is a full agent run of its own, and those runs are not shown as
-#    items in the manager's list. The weather agent makes at least 2 requests (one to ask for
-#    get_weather, one to write the summary), the stylist and activity agent 1 each, and the
-#    manager makes its own requests (one to call the tools, one to write the final answer).
-#    "Model requests" adds up all of them.
+# c. each agent-as-tool is a whole agent run on its own, and those inner calls don't show
+#    up as items in the manager's list. the weather agent needs at least 2 requests (one
+#    to ask for get_weather, one to write the summary), the stylist and activity agent need
+#    1 each, and the manager needs its own (one to call the tools, one to write the final
+#    answer). "Model requests" counts all of them, not just the ones i can see.
 # ====================================================================
